@@ -1,0 +1,7 @@
+[package]
+name = "allenap-tftp-offload"
+version = "0.1.0"
+authors = ["Gavin Panella <gavin@gromper.net>"]
+
+[dependencies]
+allenap-libtftp = { git = "https://github.com/allenap/allenap-libtftp" }
