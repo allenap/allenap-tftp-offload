@@ -1,5 +1,6 @@
 extern crate allenap_libtftp;
 
+use std::fs;
 use std::io::{Read, Write};
 use std::io;
 use std::net;
@@ -27,9 +28,13 @@ impl tftp::Handler for OffloadHandler {
     {
         match query_offload(&self.sockpath, local, remote, &filename.0) {
             Ok(offload_file) => {
-                // TODO: Delete ephemeral file after use.
-                thread::spawn(move|| rrq::serve(
-                    remote, Filename(offload_file.filename), txmode, options));
+                thread::spawn(move|| {
+                    let filename = Filename(offload_file.filename.clone());
+                    rrq::serve(remote, filename, txmode, options);
+                    if offload_file.ephemeral {
+                        fs::remove_file(offload_file.filename).ok();
+                    }
+                });
                 None
             },
             Err(error) => {
