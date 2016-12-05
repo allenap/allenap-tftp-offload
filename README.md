@@ -40,17 +40,11 @@ $ sudo chmod u+x /etc/authbind/byport/69
 
 (An alternative here is to run `allenap-tftp-offload` as root.)
 
-Create an `offload.sock` symlink in the directory in which you want to
-run `allenap-tftp-offload`:
+Start it up as *maas*:
 
 ```console
-$ ln -s /var/lib/maas/tftp-offload.sock offload.sock
-```
-
-Start it up:
-
-```console
-$ allenap-tftp-offload
+$ sudo -u maas authbind $(type -p allenap-tftp-offload) \
+>   --socket /var/lib/maas/tftp-offload.socket
 ```
 
 Then use MAAS as usual.

@@ -16,7 +16,7 @@ fn main() {
     let matches = App::new("allenap's TFTP offloader")
         .version(crate_version!())
         .author(crate_authors!())
-        .about("Takes the load of serving TFTP, typically for MAAS.")
+        .about("Takes the load off serving TFTP, typically for MAAS.")
         .arg(Arg::with_name("socket")
              .short("s")
              .long("socket")
