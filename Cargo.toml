@@ -1,7 +1,8 @@
 [package]
 name = "allenap-tftp-offload"
 version = "0.1.0"
-authors = ["Gavin Panella <gavin@gromper.net>"]
+authors = ["Gavin Panella <gavinpanella@gmail.com>"]
 
 [dependencies]
 allenap-libtftp = { git = "https://github.com/allenap/allenap-libtftp" }
+clap = "2.19.1"
