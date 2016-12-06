@@ -27,7 +27,7 @@ way is using [rustup][rustup]. This comes with *cargo* which you should
 use to fetch, build and install the `allenap-tftp-offload` executable:
 
 ```console
-$ cargo install --git https://github.com/allenap/allenap-tftp-offload
+$ cargo install allenap-tftp-offload
 ```
 
 Create some *authbind* configuration:
