@@ -1,6 +1,9 @@
 extern crate allenap_libtftp;
 #[macro_use]
 extern crate clap;
+#[macro_use]
+extern crate slog;
+extern crate slog_term;
 
 use std::io::Write;
 use std::net::{IpAddr, SocketAddr};
@@ -9,6 +12,8 @@ use std::str::FromStr;
 
 use allenap_libtftp as tftp;
 use clap::{Arg, App};
+use slog::DrainExt;
+
 mod offload;
 
 
@@ -60,10 +65,17 @@ fn main() {
         },
     };
 
-    let sockaddr = SocketAddr::new(address, port);
-    let handler = offload::OffloadHandler{sockpath: socket.to_owned()};
 
-    match tftp::serve(sockaddr, &handler) {
+    let logger = slog::Logger::root(
+        slog_term::streamer().build().fuse(), None);
+
+    let sockaddr = SocketAddr::new(address, port);
+    let handler = offload::OffloadHandler{
+        sockpath: socket.to_owned(),
+        logger: logger.clone(),
+    };
+
+    match tftp::serve(sockaddr, &handler, &logger) {
         Ok(_) => {
             writeln!(std::io::stdout(), "All okay.").ok();
             process::exit(0);

@@ -1,4 +1,5 @@
 extern crate allenap_libtftp;
+extern crate slog;
 
 use std::fs;
 use std::io::{Read, Write};
@@ -12,10 +13,12 @@ use allenap_libtftp::options::Options;
 use allenap_libtftp::packet::{Filename, Packet, TransferMode};
 use allenap_libtftp::packet;
 use allenap_libtftp::rrq;
+use slog::Logger;
 
 
 pub struct OffloadHandler {
     pub sockpath: String,
+    pub logger: Logger,
 }
 
 
@@ -28,9 +31,11 @@ impl tftp::Handler for OffloadHandler {
     {
         match query_offload(&self.sockpath, local, remote, &filename.0) {
             Ok(offload_file) => {
+                let logger = self.logger.clone();
                 thread::spawn(move|| {
                     let filename = Filename(offload_file.filename.clone());
-                    rrq::serve(remote, filename, txmode, options);
+                    rrq::serve_file(
+                        remote, filename, txmode, options, &logger);
                     if offload_file.ephemeral {
                         fs::remove_file(offload_file.filename).ok();
                     }
