@@ -12,7 +12,7 @@ use std::str::FromStr;
 
 use allenap_libtftp as tftp;
 use clap::{Arg, App};
-use slog::DrainExt;
+use slog::Drain;
 
 mod offload;
 
@@ -66,8 +66,10 @@ fn main() {
     };
 
 
+    let logger_term_decorator =
+        slog_term::PlainSyncDecorator::new(std::io::stdout());
     let logger = slog::Logger::root(
-        slog_term::streamer().build().fuse(), None);
+        slog_term::FullFormat::new(logger_term_decorator).build().fuse(), o!());
 
     let sockaddr = SocketAddr::new(address, port);
     let handler = offload::OffloadHandler{

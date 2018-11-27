@@ -10,7 +10,7 @@ homepage = "https://github.com/allenap/allenap-tftp-offload"
 repository = "https://github.com/allenap/allenap-tftp-offload"
 
 [dependencies]
-allenap-libtftp = "^0.2.0"
+allenap-libtftp = "^0.2.1"
 clap = "^2.19.1"
-slog = "^1.3.2"
-slog-term = "^1.3.3"
+slog = "^2.4.0"
+slog-term = "^2.4.0"
