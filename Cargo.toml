@@ -12,5 +12,5 @@ repository = "https://github.com/allenap/allenap-tftp-offload"
 [dependencies]
 allenap-libtftp = "^0.2.1"
 clap = "^2.33.0"
-slog = "^2.5.0"
+slog = "^2.5.2"
 slog-term = "^2.4.1"
