@@ -1,3 +1,10 @@
+# ⚠️ Not supported
+
+This crate is no longer supported and will not be updated. It was an experiment
+and is unlikely to be useful to anyone in its present state. The code itself may
+be a minor curiosity... but probably not. This is not the TFTP goodness you're
+looking for. Sorry!
+
 # allenap's TFTP offload server
 
 This is an *experimental* TFTP offload server built using
